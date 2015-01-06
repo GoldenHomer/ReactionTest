@@ -1,47 +1,60 @@
-function getRandomColor() {
-  var letters = '0123456789ABCDEF'.split('');
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.round(Math.random() * 15)];
+var mainDiv = document.getElementById("main"),
+    shapes = mainDiv.getElementsByTagName("div"),
+    color = "",
+    radiusArray = ["0px","0px","60px"],
+    clickedTime,
+    createdTime,
+    reactionTime;
+
+function shapeStyles () {
+  var colorsArray = ["red","blue","green","yellow","black","orange","purple","white"];
+
+  // Loop through each div inside the div with id "main".
+  for (var i = 0; i < shapes.length; i++){
+        // Get random indices for the color and radius arrays.
+        var colorsIndex = Math.floor(Math.random()*colorsArray.length),
+            radiusIndex = Math.floor(Math.random()*radiusArray.length),
+        // Then get the style of each i-th div element with, wait for it, class "shape".
+            styleObj = shapes[i].style;
+        // Set the styles
+        styleObj.backgroundColor = colorsArray[colorsIndex];
+        styleObj.borderRadius = radiusArray[radiusIndex];
+        styleObj.display = "block";
+        // Remove the color just used so it doesn't repeat. Things won't be fun that way.
+        colorsArray.splice(colorsIndex,1);
   }
-    return color;
+
+  // Pick the index of the correct answer.
+  var correct = Math.floor(Math.random()*shapes.length);
+  // Get the color of the correct answer.
+  color = shapes[correct].style.backgroundColor;
+  // Tell user to pick that color.
+  document.getElementById("color").innerHTML=color;
+  // Start the reaction timer after all div styles are set
+  createdTime = Date.now();
 }
 
-var clickedTime;
-var createdTime;
-var reactionTime;
-            
-  function makeBox() {
-    var time=Math.random();
-    time *= 5000;
-
-    setTimeout(function() {
-      if (Math.random() > 0.5) {
-        document.getElementById("box").style.borderRadius="100px";￼￼
-      } 
-      else {
-        document.getElementById("box").style.borderRadius="0";
-      }
-          
-      var top=Math.random();
-      top*=300;
-          
-      var left=Math.random();
-      left*=500;
-                              
-      document.getElementById("box").style.top=top+"px";
-      document.getElementById("box").style.left=left+"px";
-      document.getElementById("box").style.backgroundColor=getRandomColor();
-      document.getElementById("box").style.display="block";
-      createdTime=Date.now();
-    }, time);
-￼￼}
-document.getElementById("box").onclick=function() {
-  clickedTime=Date.now();
-  reactionTime = (clickedTime-createdTime)/1000;
-  document.getElementById("time").innerHTML = reactionTime;
-  this.style.display="none";
-  makeBox(); 
+function displayShapes(){
+  var time = 5000*Math.random();
+  // Run the shapeStyles function after a random time.
+  setTimeout(function(){ shapeStyles(); }, time );
+}
+    
+for (var i = 0; i < shapes.length; i++){
+  shapes[i].onclick = clickShape;
 }
 
-makeBox();
+function clickShape() {
+  if (this.style.backgroundColor == color) {
+    clickedTime = Date.now();
+    reactionTime = (clickedTime-createdTime)/1000;
+    document.getElementById("time").innerHTML=reactionTime;
+
+    for (var i=0; i<shapes.length; i++){
+      shapes[i].style.display="none";
+    }
+    displayShapes();
+  }
+}
+
+displayShapes();

@@ -1,34 +1,46 @@
 <!doctype html> 
 <html>
   <head>
-    <title>Test Your Reaction</title>
-
-    <style> <!-- I know, I know, internal CSS-->
-
-      body {
-        font-family:Verdana, Geneva, sans-serif;
+    <title>Test Your Might</title>
+    <meta charset="utf-8">
+    
+    <style>
+      #main {
+        background-color:#CCCCCC;
+        width:580px;
+        height:300px;
+        border:solid;
+        border-radius:20px;
       }
 
-      #box {
-        width:200px;
-        height:200px;
-        background-color:red;
-        display:none;
+      .shape{
+        float:left;
         position:relative;
-      ￼￼￼
+        margin:20px 0px 0px 20px;
+        width:120px;
+        height:120px;
+        display:none;
       }
-
-      .bold {
-        font-weight:bold;
-      }
-
     </style>
   </head>
+
   <body>
-    <h1>Test your reactions</h1>
-    <p>Click on the boxes and circles as quickly as you can.</p>
-    <p class="bold">Your time: <span id="time">0</span>s</p>
-    <div id="box"></div>
-    <script src="scripts.js"></script>
+    <h1>Test your reaction</h1>
+    <h2>Click on the correctly colored box as quickly as you can.</h2>
+    <p>Pick: <span id="color"></span></p>
+
+    <div id="main">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+
+    <p>Your time: <span id="time">0</span>s</p>
+    <script src="script.js"></script>
   </body>
 </html>
